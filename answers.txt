@@ -1,0 +1,75 @@
+ Answers to the 5 Questions
+
+1. Is there a fault in the program? If so, locate it and explain.
+
+Yes.
+Location: Line 21: for (int i = 1; i < attendance_records.size(); ++i).
+
+Explanation: 
+The loop initializes the index i to 1. 
+In C++, vectors are 0-indexed. This causes the program to skip the first lecture (index 0) entirely. 
+The loop should start with int i = 0.
+
+2. Define a test case that does not execute the fault.
+
+Answer: Impossible.
+
+
+Reason: 
+The instructions require a test case with an attendance record of 10 values. 
+To process this input, the function must execute the for loop.
+The fault is located in the loop initialization (int i = 1).
+Therefore, any call to the function with a vector of size 10 will inevitably execute the faulty line of code initializing the loop.
+
+
+3. Define a test case that executes the fault but does not result in an error state.
+
+Test Input: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1] (All Present)
+
+Explanation:
+
+Fault Executed: The loop starts at i=1, skipping index 0.
+
+No Error State: The student was present (1) at index 0. Even though the program skipped this index, the internal variable absent_count remains 0.
+The correct absent_count for a present student is also 0. Since the calculated state matches the expected state, no error state occurs regarding the count.
+
+Expected Output: 0 (False/Pass)
+
+Actual Output: 0 (False/Pass)
+
+4. Define a test case that results in an error state but not a failure.
+
+Test Input: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1] (Absent at index 0, Present elsewhere)
+
+Explanation:
+
+Error State: The student was absent (0) at index 0. The program skips this.
+The program's absent_count is 0. The correct absent_count should be 1. The internal state is now incorrect (Error State).
+
+
+No Failure: The threshold for failing the course is 3 absences. The student has 1 actual absence.
+The program counts 0 absences. Both 1 and 0 are less than 3. The function returns False (Pass), which is the correct external behavior.
+
+Expected Output: 0 (False/Pass)
+
+Actual Output: 0 (False/Pass)
+
+5. Define a test case that results in failure.
+
+Test Input: [0, 0, 0, 1, 1, 1, 1, 1, 1, 1] (Absent at index 0, 1, and 2)
+
+Explanation:
+
+Failure: The student has exactly 3 absences, so they should fail the course (Return True).
+
+The program skips index 0 (an absence). It counts only index 1 and 2.
+
+Program calculates absent_count = 2.
+
+Program evaluates 2 >= 3 as False.
+
+The program outputs False (Pass) when it should output True (Fail). The external behavior deviates from the expected outcome.
+
+Expected Output: 1 (True/Fail)
+
+Actual Output: 0 (False/Pass)
